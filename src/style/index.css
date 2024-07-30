@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    body{
+        @apply font-raleway text-neutral-600 bg-greyBG max-w-[75em] mx-auto text-base  font-semibold
+    }
+}
+
+@layer components {
+    .title{
+        @apply text-[30px] leading-9 font-bold text-neutral-800
+    }
+    .section{
+        @apply mt-section space-y-9
+    }
+    .filterBtn{
+        @apply rounded-xl bg-neutral-50 px-[26px] py-[10px] transition
+    }
+    .filterBtn.active{
+        @apply bg-neutral-800 text-white
+    }
+}
+
+@layer utilities {
+    .hide{
+        @apply opacity-0 invisible
+    }
+}

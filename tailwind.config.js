@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         white: "#FFFFFF",
-        grey: "#F8F8F8",
+        greyBG: "#F8F8F8",
         neutral: {
           50: "#E8E9EA",
           100: "#B8BABE",
@@ -22,8 +22,11 @@ export default {
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],
       },
+      fontSize: {
+        "xxl": "24rem"
+      },
       spacing: {
-        section: "24rem",
+        section: "6rem",
       },
     },
   },
