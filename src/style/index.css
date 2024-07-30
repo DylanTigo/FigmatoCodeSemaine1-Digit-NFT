@@ -21,6 +21,9 @@
     .filterBtn.active{
         @apply bg-neutral-800 text-white
     }
+    .subTitle{
+        @apply font-bold text-[20px] text-neutral-800
+    }
 }
 
 @layer utilities {

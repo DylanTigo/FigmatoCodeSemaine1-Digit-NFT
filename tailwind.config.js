@@ -19,6 +19,10 @@ export default {
           900: "#0B0D12",
         },
       },
+      borderRadius: {
+        card: "20px",
+        "4xl": "2rem"
+      },
       fontFamily: {
         raleway: ["Raleway", "sans-serif"],
       },

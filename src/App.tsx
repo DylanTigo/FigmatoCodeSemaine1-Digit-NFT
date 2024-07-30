@@ -1,6 +1,11 @@
-import { coolKong, headBroken } from "./assets/images";
+import { astroGaming, coolKong, headBroken } from "./assets/images";
 import { arrow, stars } from "./assets/svg";
+import AdvantageCard from "./components/AdvantageCard";
+import Button from "./components/Button";
+import Card from "./components/Card";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { avantages, collections } from "./datas/datas";
 
 function App() {
   return (
@@ -21,36 +26,97 @@ function App() {
               <button type="button" className="flex gap-4 items-center">
                 Discover now{" "}
                 <div className="p-[14px] rounded-full border border-neutral-600">
-                <img
-                  src={arrow}
-                  alt="fléche vers la droite"
-                  className="size-5"
-                />
+                  <img
+                    src={arrow}
+                    alt="fléche vers la droite"
+                    className="size-5"
+                  />
                 </div>
               </button>
             </div>
           </div>
           <div className="relative w-[596px] h-[588px] flex justify-between mt-5">
-            <img src={ stars } alt="" className="absolute top-[15px] left-[150px]"/>
-            <img src={headBroken} alt="Bald woman's head cracked with butterfly" className="rounded-full object-cover object-center w-[288px] h-[442px] self-end"/>
-            <img src={coolKong} alt="Monkey wearing glass and smoking" className="rounded-full object-cover object-center w-[288px] h-[442px]"/>
+            <img
+              src={stars}
+              alt=""
+              className="absolute top-[15px] left-[150px]"
+            />
+            <img
+              src={headBroken}
+              alt="Bald woman's head cracked with butterfly"
+              className="rounded-full object-cover object-center w-[288px] h-[442px] self-end"
+            />
+            <img
+              src={coolKong}
+              alt="Monkey wearing glass and smoking"
+              className="rounded-full object-cover object-center w-[288px] h-[442px]"
+            />
           </div>
-
         </section>
 
         <section className="section">
           <h2 className="title">Our Collections</h2>
           <div className="flex justify-between items-center">
             <div className="flex gap-2 w-fit">
-              <button type="button" className="filterBtn active">All cathegories</button>
-              <button type="button" className="filterBtn">Art</button>
-              <button type="button" className="filterBtn">Celibrities</button>
-              <button type="button" className="filterBtn">Gaming</button>
-              <button type="button" className="filterBtn">Sport</button>
+              <button type="button" className="filterBtn active">
+                All cathegories
+              </button>
+              <button type="button" className="filterBtn">
+                Art
+              </button>
+              <button type="button" className="filterBtn">
+                Celibrities
+              </button>
+              <button type="button" className="filterBtn">
+                Gaming
+              </button>
+              <button type="button" className="filterBtn">
+                Sport
+              </button>
             </div>
-            <a href="#" className=" decoration-neutral-500">View more</a>
+            <a
+              href="#"
+              className="underline decoration-neutral-500 decoration-solid"
+            >
+              View more
+            </a>
+          </div>
+          <div className="flex gap-6 justify-center flex-wrap">
+            <div className="flex gap-6 justify-center">
+              {collections.map((item, index) => index <= 1 && (
+                <Card item={item} />
+              ))}
+            </div>
+            <div className="flex gap-6 justify-center">
+              {collections.map((item, index) => index > 1 && (
+                <Card item={item} />
+              ))}
+            </div>
           </div>
         </section>
+        <section className="section">
+          <h2 className="title">Create and Sell Now</h2>
+          <div className="flex gap-6 justify-center flex-wrap">
+            <div className="flex gap-6 justify-center">
+              {avantages.map((avantage, index) => index <= 1 && (
+                <AdvantageCard avantage={avantage}/>
+              ))}
+            </div>
+            <div className="flex gap-6 justify-center">
+              {avantages.map((avantage, index) => index > 1 && (
+                <AdvantageCard avantage={avantage}/>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="section py-[4.5rem] text-white flex flex-col justify-center items-center relative rounded-4xl overflow-hidden">
+          <img src={astroGaming} alt="astronaut with casino domino" className="absolute top-0 left-0 w-full h-full object-cover brightness-50 -z-10"/>
+          <h2 className="text-[4rem] font-medium">Build your NFT profile</h2>
+          <p className="">Join almost 10k NFT profiles on Digit !</p>
+          <Button variant="secondary">Sign up now</Button>
+        </section>
+
+        <Footer/>
       </main>
     </>
   );
