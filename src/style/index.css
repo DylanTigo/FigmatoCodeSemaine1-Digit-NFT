@@ -4,7 +4,7 @@
 
 @layer base {
     body{
-        @apply font-raleway text-neutral-600 bg-greyBG max-w-[75em] mx-auto text-base  font-semibold
+        @apply font-raleway text-neutral-600 bg-greyBG max-w-[75em] mx-auto text-base font-semibold px-5 sm:px-[46px] box-content overflow-x-hidden
     }
 }
 
@@ -16,7 +16,7 @@
         @apply mt-section space-y-9
     }
     .filterBtn{
-        @apply rounded-xl bg-neutral-50 px-[26px] py-[10px] transition
+        @apply rounded-xl bg-neutral-50 px-[26px] py-[10px] transition text-nowrap
     }
     .filterBtn.active{
         @apply bg-neutral-800 text-white
@@ -30,4 +30,12 @@
     .hide{
         @apply opacity-0 invisible
     }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+    
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
 }
