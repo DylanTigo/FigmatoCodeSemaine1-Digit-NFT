@@ -4,7 +4,7 @@ import Button from "./Button";
 import Menu from "./Menu";
 
 export default function Header() {
-  const [menuActive, setMenuActive] = useState(true);
+  const [menuActive, setMenuActive] = useState(false);
 
   function toggleMenu () {
     setMenuActive(!menuActive)
@@ -16,11 +16,11 @@ export default function Header() {
         <img src={logo} alt="Logo de Digit-NFT" className="size-8" />
       </a>
       <nav className="lg:flex hidden gap-7 items-center text-neutral-700">
-        <a href="#">Home</a>
-        <a href="#">Top sales</a>
-        <a href="#">Collections</a>
-        <a href="#">Our Blog</a>
-        <a href="#">About us</a>
+        <a className="link" href="#">Home</a>
+        <a className="link" href="#">Top sales</a>
+        <a className="link" href="#">Collections</a>
+        <a className="link" href="#">Our Blog</a>
+        <a className="link" href="#">About us</a>
       </nav>
       <div className="lg:flex hidden gap-5 items-center">
         <a

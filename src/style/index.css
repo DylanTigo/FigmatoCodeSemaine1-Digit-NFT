@@ -3,39 +3,52 @@
 @tailwind utilities;
 
 @layer base {
-    body{
-        @apply font-raleway text-neutral-600 bg-greyBG max-w-[75em] mx-auto text-base font-semibold px-5 sm:px-[46px] box-content overflow-x-hidden
-    }
+  body {
+    @apply font-raleway text-neutral-600 bg-greyBG max-w-[75em] mx-auto text-base font-semibold px-5 sm:px-[46px] box-content overflow-x-hidden;
+  }
+  a{
+    @apply relative
+  }
+  button{
+    @apply relative
+  }
 }
 
 @layer components {
-    .title{
-        @apply text-[30px] leading-9 font-bold text-neutral-800
-    }
-    .section{
-        @apply mt-section space-y-9
-    }
-    .filterBtn{
-        @apply rounded-xl bg-neutral-50 px-[26px] py-[10px] transition text-nowrap
-    }
-    .filterBtn.active{
-        @apply bg-neutral-800 text-white
-    }
-    .subTitle{
-        @apply font-bold text-[20px] text-neutral-800
-    }
+  .title {
+    @apply text-[30px] leading-9 font-bold text-neutral-800;
+  }
+  .section {
+    @apply mt-section space-y-9;
+  }
+  .filterBtn {
+    @apply rounded-xl bg-neutral-50 px-[26px] py-[10px] transition text-nowrap;
+  }
+  .filterBtn.active {
+    @apply bg-neutral-800 text-white;
+  }
+  .subTitle {
+    @apply font-bold text-[20px] text-neutral-800;
+  }
 }
 
 @layer utilities {
-    .hide{
-        @apply opacity-0 invisible
-    }
-    .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-      }
-    
-      .scrollbar-hide {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
+  .hide {
+    @apply opacity-0 invisible;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  a.link::after {
+    content: "";
+    @apply absolute bottom-[-2px] left-0 w-full h-[2px] bg-neutral-800 origin-left scale-0 transition-transform duration-300 ease-out;
+  }
+  a.link:hover::after {
+    @apply scale-100;
+  }
 }

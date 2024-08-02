@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { astroGaming, coolKong, headBroken } from "./assets/images";
 import { arrow, stars } from "./assets/svg";
 import AdvantageCard from "./components/AdvantageCard";
@@ -6,13 +7,103 @@ import Card from "./components/Card";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import { avantages, collections } from "./datas/datas";
+import Lenis from "lenis";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
+import { useGSAP } from "@gsap/react";
 
 function App() {
+  const hero = useRef(null);
+  const img1 = useRef(null);
+  const img2 = useRef(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const advantagesRef = useRef<HTMLDivElement[]>([]);
+  const signUpSection = useRef(null);
+  // const collectionsSection = useRef(null);
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.5,
+      touchMultiplier: 2,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        target: hero.current,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        toggleActions: "play none none reverse",
+      },
+    });
+
+    tl.to(img1.current, { y: -600, ease: "power1.inOut" }, 0);
+    tl.to(img2.current, { y: -300, ease: "power1.inOut" }, 0);
+  }, [hero.current]);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        cardsRef.current,
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: cardsRef.current,
+            start: "top 80%",
+            markers: true,
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+  );
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        advantagesRef.current,
+        { opacity: 0, y: 80 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          onComplete: () => {},
+          scrollTrigger: {
+            trigger: advantagesRef.current,
+            start: "top 80%",
+            markers: true,
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    }
+  );
+
   return (
     <>
       <Header />
       <main>
-        <section className="mt-[106px] container flex max-lg:flex-col">
+        <section
+          ref={hero}
+          className="mt-[106px] container flex max-lg:flex-col"
+        >
           <div className="flex gap-[52px] flex-col text-neutral-600 lg:max-w-[50%]">
             <h1 className="lg:text-[120px] sm:text-8xl text-[52px] lg:leading-[108px] leading-[82px] text-nowrap font-normal">
               See the NFT
@@ -42,11 +133,13 @@ function App() {
               className="absolute top-[15px] left-[150px]"
             />
             <img
+              ref={img1}
               src={headBroken}
               alt="Bald woman's head cracked with butterfly"
               className="rounded-full object-cover object-center w-[288px] h-[442px] self-end"
             />
             <img
+              ref={img2}
               src={coolKong}
               alt="Monkey wearing glass and smoking"
               className="rounded-full object-cover object-center w-[288px] h-[442px]"
@@ -54,7 +147,7 @@ function App() {
           </div>
         </section>
 
-        <section className="section">
+        <section className="section" id="collections">
           <h2 className="title">Our Collections</h2>
           <div className="flex justify-between items-center flex-wrap gap-[10px]">
             <div className="flex gap-2 w-fit overflow-x-scroll scrollbar-hide">
@@ -82,27 +175,46 @@ function App() {
             </a>
           </div>
           <div className="flex gap-6 justify-center flex-wrap">
-            {collections.map((item) => (
-              <Card item={item} key={item.id} />
+            {collections.map((item, index) => (
+              <div
+                ref={(el) => (cardsRef.current[index] = el as HTMLDivElement)}
+                key={item.id}
+              >
+                <Card item={item} />
+              </div>
             ))}
           </div>
         </section>
-        <section className="section">
+        <section className="section" ref={signUpSection}>
           <h2 className="title">Create and Sell Now</h2>
           <div className="flex gap-6 justify-center flex-wrap">
-            {avantages.map((avantage ) => (
-              <AdvantageCard key={avantage.id} avantage={avantage} />
+            {avantages.map((avantage, index) => (
+              <div
+                ref={(el) =>
+                  (advantagesRef.current[index] = el as HTMLDivElement)
+                }
+                key={avantage.id}
+              >
+                <AdvantageCard avantage={avantage} />
+              </div>
             ))}
           </div>
         </section>
-        <section className="section py-[4.5rem] text-white flex flex-col justify-center items-center relative rounded-4xl overflow-hidden">
+        <section
+          ref={signUpSection}
+          className="section py-[4.5rem] text-white flex flex-col justify-center items-center group relative rounded-4xl overflow-hidden"
+        >
           <img
             src={astroGaming}
             alt="astronaut with casino domino"
-            className="absolute top-0 left-0 w-full h-full object-cover brightness-50 -z-10"
+            className="absolute top-0 left-0 w-full h-full object-cover brightness-50 -z-10 group-hover:scale-150 group-hover:duration-[20s] ease-linear transition-transform" 
           />
-          <h2 className="text-[28px] sm:text-[46px] lg:text-[4rem] font-medium">Build your NFT profile</h2>
-          <p className="font-semibold max-sm:text-xs">Join almost 10k NFT profiles on Digit !</p>
+          <h2 className="text-[28px] sm:text-[46px] lg:text-[4rem] font-medium">
+            Build your NFT profile
+          </h2>
+          <p className="font-semibold max-sm:text-xs">
+            Join almost 10k NFT profiles on Digit !
+          </p>
           <Button variant="secondary">Sign up now</Button>
         </section>
 

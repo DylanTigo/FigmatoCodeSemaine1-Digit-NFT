@@ -16,12 +16,10 @@ export default function Menu({ onClick, menuActive }: MenuProps) {
       menu.current.classList.remove("translate-x-full");
       background.current?.classList.remove("opacity-0");
       background.current?.classList.remove("invisible");
-      document.body.classList.add("overflow-hidden")
     } else if (!menuActive && menu.current) {
       menu.current.classList.add("translate-x-full");
       background.current?.classList.add("opacity-0");
       background.current?.classList.add("invisible");
-      document.body.classList.remove("overflow-hidden")
     }
   }, [menuActive]);
 
