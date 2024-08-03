@@ -78,7 +78,6 @@ function App() {
           opacity: 0,
           y: 80,
           stagger: 0.1,
-          onStart: () =>  console.log("start"),
           scrollTrigger: {
             trigger: cardsRef.current,
             start: "top 80%",
