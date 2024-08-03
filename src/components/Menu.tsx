@@ -44,11 +44,11 @@ export default function Menu({ onClick, menuActive }: MenuProps) {
         </div>
 
         <nav className="flex flex-col gap-7 text-neutral-700">
-          <a href="#">Home</a>
-          <a href="#">Top sales</a>
-          <a href="#">Collections</a>
-          <a href="#">Our Blog</a>
-          <a href="#">About us</a>
+          <a className="link" href="#">Home</a>
+          <a className="link" href="#">Top sales</a>
+          <a className="link" href="#">Collections</a>
+          <a className="link" href="#">Our Blog</a>
+          <a className="link" href="#">About us</a>
         </nav>
 
         <div className="flex gap-5 items-center">

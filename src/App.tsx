@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { astroGaming, coolKong, headBroken } from "./assets/images";
 import { arrow, stars } from "./assets/svg";
 import AdvantageCard from "./components/AdvantageCard";
@@ -13,6 +13,14 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 import { useGSAP } from "@gsap/react";
 
+type Collection = {
+  id: number;
+  name: string;
+  price: number;
+  img: string;
+  type: string;
+};
+
 function App() {
   const hero = useRef(null);
   const img1 = useRef(null);
@@ -20,7 +28,15 @@ function App() {
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const advantagesRef = useRef<HTMLDivElement[]>([]);
   const signUpSection = useRef(null);
-  // const collectionsSection = useRef(null);
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const filterCollections = ( collections: Collection[], category: string ) => {
+    if (category === "all") return collections;
+    const filteredCollections = collections.filter((collection) => collection.type === category);
+    
+    return filteredCollections;
+  }
+  const filtedCollections = useMemo(() => filterCollections(collections, activeCategory) , [activeCategory]);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -43,7 +59,6 @@ function App() {
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
-        target: hero.current,
         start: "top top",
         end: "bottom top",
         scrub: true,
@@ -57,22 +72,20 @@ function App() {
 
   useGSAP(
     () => {
-      gsap.fromTo(
+      gsap.from(
         cardsRef.current,
-        { opacity: 0, y: 80 },
         {
-          opacity: 1,
-          y: 0,
+          opacity: 0,
+          y: 80,
           stagger: 0.1,
           scrollTrigger: {
             trigger: cardsRef.current,
             start: "top 80%",
-            markers: true,
             toggleActions: "play none none reverse",
           },
         }
       );
-    }
+    },{ dependencies: [activeCategory] }
   );
 
   useGSAP(
@@ -88,7 +101,6 @@ function App() {
           scrollTrigger: {
             trigger: advantagesRef.current,
             start: "top 80%",
-            markers: true,
             toggleActions: "play none none reverse",
           },
         }
@@ -114,9 +126,9 @@ function App() {
                 Vorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam
                 eu turpis molestie, di
               </p>
-              <button type="button" className="flex gap-4 items-center">
+              <button type="button" className="flex gap-4 items-center group !overflow-visible">
                 Discover now{" "}
-                <div className="p-[14px] rounded-full border border-neutral-600">
+                <div className="p-[14px] rounded-full border border-neutral-600 group-hover:-rotate-45 group-hover:translate-x-1 transition-transform duration-300">
                   <img
                     src={arrow}
                     alt="fléche vers la droite"
@@ -151,19 +163,19 @@ function App() {
           <h2 className="title">Our Collections</h2>
           <div className="flex justify-between items-center flex-wrap gap-[10px]">
             <div className="flex gap-2 w-fit overflow-x-scroll scrollbar-hide">
-              <button type="button" className="filterBtn active">
+              <button type="button" className={`filterBtn ${activeCategory === "all" ? "active" : ""}`} onClick={() => setActiveCategory("all")}>
                 All cathegories
               </button>
-              <button type="button" className="filterBtn">
+              <button type="button" className={`filterBtn ${activeCategory === "art" ? "active" : ""}`} onClick={() => setActiveCategory("art")}>
                 Art
               </button>
-              <button type="button" className="filterBtn">
+              <button type="button" className={`filterBtn ${activeCategory === "celebrities" ? "active" : ""}`} onClick={() => setActiveCategory("celebrities") }>
                 Celibrities
               </button>
-              <button type="button" className="filterBtn">
+              <button type="button" className={`filterBtn ${activeCategory === "gaming" ? "active" : ""}`} onClick={() => setActiveCategory("gaming") }>
                 Gaming
               </button>
-              <button type="button" className="filterBtn">
+              <button type="button" className={`filterBtn ${activeCategory === "sport" ? "active" : ""}`} onClick={() => setActiveCategory("sport")} disabled>
                 Sport
               </button>
             </div>
@@ -175,7 +187,7 @@ function App() {
             </a>
           </div>
           <div className="flex gap-6 justify-center flex-wrap">
-            {collections.map((item, index) => (
+            {filtedCollections.map((item, index) => (
               <div
                 ref={(el) => (cardsRef.current[index] = el as HTMLDivElement)}
                 key={item.id}

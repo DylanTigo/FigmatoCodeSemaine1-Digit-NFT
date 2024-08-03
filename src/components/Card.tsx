@@ -28,7 +28,7 @@ export default function Card({ item }: { item: Card }) {
       </div>
       <button
         type="button"
-        className="w-full border border-neutral-800 rounded-xl flex justify-center py-[10px]"
+        className="w-full border border-neutral-800 rounded-xl flex justify-center py-[10px] btnLight"
       >
         Place a Bild
       </button>

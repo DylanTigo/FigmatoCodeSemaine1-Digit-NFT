@@ -7,7 +7,7 @@ export default function Header() {
   const [menuActive, setMenuActive] = useState(false);
 
   function toggleMenu () {
-    setMenuActive(!menuActive)
+    setMenuActive(prev => !prev)
   }
 
   return (
