@@ -186,9 +186,10 @@ function App() {
               View more
             </a>
           </div>
-          <div className="flex gap-6 justify-center flex-wrap">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filtedCollections.map((item, index) => (
               <div
+                className="grow"
                 ref={(el) => (cardsRef.current[index] = el as HTMLDivElement)}
                 key={item.id}
               >
@@ -199,7 +200,7 @@ function App() {
         </section>
         <section className="section" ref={signUpSection}>
           <h2 className="title">Create and Sell Now</h2>
-          <div className="flex gap-6 justify-center flex-wrap">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {avantages.map((avantage, index) => (
               <div
                 ref={(el) =>

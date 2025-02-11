@@ -11,8 +11,8 @@ type Card = {
 export default function Card({ item }: { item: Card }) {
   
   return (
-    <article className="card w-[282px] h-[341px] rounded-card border space-y-4 border-neutral-100 p-3 shrink-0">
-      <div className="w-full h-[213px] rounded-card overflow-hidden">
+    <article className="card w-full rounded-card border space-y-4 border-neutral-100 p-3 shrink-0">
+      <div className="w-full h-auto aspect-square rounded-card overflow-hidden">
         <img
           src={item.img}
           alt={"image de " + item.name}
